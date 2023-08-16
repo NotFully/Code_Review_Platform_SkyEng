@@ -1,0 +1,23 @@
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <title>
+        {% block title %}
+            Code Review
+        {% endblock %}
+    </title>
+</head>
+<body>
+    {% include 'includes/header.html' %}
+    <main>
+        <div class="container py-5">
+            {% block content %}
+                Информация главной страницы.
+            {% endblock %}
+        </div>
+    </main>
+</body>
+</html>

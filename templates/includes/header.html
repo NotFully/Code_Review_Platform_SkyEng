@@ -1,0 +1,36 @@
+{% load static %}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+
+{% with request.resolver_match.view_name as view_name %}
+
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #00C1FF">
+      <div class="collapse navbar-collapse" id="collapibleNavbar">
+        <ul class="nav nav-pills ms-auto">
+          {% if user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link link-dark {% if view_name  == 'main:upload' %}active{% endif %}" href="{% url 'main:upload' %}">Загрузить файл</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link link-dark {% if view_name  == 'users:logout' %}active{% endif %}" href="{% url 'users:logout' %}">Выйти</a>
+            </li>
+            <li class="nav-link link-dark">
+              Пользователь: <b>{{ user.email }}</b>
+            </li>
+          {% else %}
+            <li class="nav-item">
+              <a class="nav-link link-dark {% if view_name  == 'users:login' %}active{% endif %}" href="{% url 'users:login' %}">Войти</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link link-dark {% if view_name  == 'users:signup' %}active{% endif %}" href="{% url 'users:signup' %}">Регистрация</a>
+            </li>
+          {% endif %}
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+{% endwith %}
