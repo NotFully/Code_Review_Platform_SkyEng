@@ -1,17 +1,13 @@
+from django.contrib.auth.models import AbstractUser
 from django.db import models
-from django.contrib.auth import get_user_model
-
-User = get_user_model()
+from .managers import CustomManager
 
 
-class UserProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+class User(AbstractUser):
+    username = None
+    email = models.EmailField(unique=True)
     is_reviewer = models.BooleanField(default=False)
 
-    def __unicode__(self):
-        return self.user
-
-    class Meta:
-        verbose_name = 'Профиль'
-        verbose_name_plural = 'Профили'
-
+    USERNAME_FIELD = "email"
+    REQUIRED_FIELDS = []
+    objects = CustomManager()

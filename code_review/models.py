@@ -17,6 +17,9 @@ class File(CreatedModel):
         validators=[FileExtensionValidator(allowed_extensions=['py'])],
     )
 
+    class Meta:
+        ordering = ['-pub_date']
+
 
 class ReviewComment(CreatedModel):
     review_text = models.TextField(

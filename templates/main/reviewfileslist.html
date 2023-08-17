@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}
+{{ user.email }}
+{% endblock %}
+{% block content %}
+<div class="container">
+    <h2>Список файлов на проверку пользователя {{ user.email }}</h2>
+    <h3>Список непроверенных файлов {{ user.files.count }}</h3>
+    <div class="container">
+        {% for obj in page_obj %}
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-tittle">{{ obj.file }}</h5>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
