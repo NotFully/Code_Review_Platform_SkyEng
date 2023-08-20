@@ -8,17 +8,22 @@ from django.core.paginator import Paginator
 def index(request):
     template = 'main/index.html'
     page_title = 'Последние файлы на проверку'
+    file_list = File.objects.all()
+    paginator = Paginator(file_list, 10)
+    page_number = request.GET.get('page')
+    page_files = paginator.get_page(page_number)
     context = {
         'title': page_title,
+        'page_obj': page_files
     }
 
     return render(request, template, context)
 
 
-def reviewlist(request, username):
-    template = 'main/reviewlist.html'
-    user = get_object_or_404(User, username=username)
-    file_list = user.files.filter()
+def reviewfileslist(request, user_id):
+    template = 'main/reviewfileslist.html'
+    user = get_object_or_404(User, id=user_id)
+    file_list = File.objects.filter(user=user)
     paginator = Paginator(file_list, 10)
     page_number = request.GET.get('page')
     page_files = paginator.get_page(page_number)
@@ -41,7 +46,7 @@ def upload(request):
         temp_form.user = request.user
         temp_form.save()
         return redirect(
-            'main:reviewfileslist', temp_form.user
+            'main:reviewfileslist', temp_form.user.id
         )
 
     return render(request, template, {'form': form})

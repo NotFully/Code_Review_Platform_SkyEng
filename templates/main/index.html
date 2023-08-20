@@ -6,7 +6,12 @@
 
 {% block content %}
   <div class="container">
-    {% for obj in page_obj %}
+    {% for file in page_obj %}
+    <div class="card">
+      <div class="card-body">
+        <p>{{ file.file }}</p>
+      </div>
+    </div>
     {% endfor %}
   </div>
   {% include 'main/includes/paginator.html' %}
